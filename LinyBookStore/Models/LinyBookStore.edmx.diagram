@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b5b3a83c53784f77aafe6f3b72d55e58" Name="Diagram1">
+        <EntityTypeShape EntityType="LinyBookStoreModel.Account" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Address" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Comment" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Delivery" Width="1.5" PointX="3.75" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Discount" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.District" Width="1.5" PointX="1.5" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Genre" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Order" Width="1.5" PointX="6" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.OrderAddress" Width="1.5" PointX="3.75" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.OrderDetail" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Payment" Width="1.5" PointX="3.75" PointY="30.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Product" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Product_Img" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Province" Width="1.5" PointX="1.5" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Publisher" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.RelyComment" Width="1.5" PointX="10.5" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.sysdiagram" Width="1.5" PointX="5.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinyBookStoreModel.Ward" Width="1.5" PointX="1.5" PointY="27.5" IsExpanded="true" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Comment_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_dbo_Address_dbo_Account_account_id" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Order_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_RelyComment_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Address_Districts" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Address_Provinces" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Address_Wards" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_dbo_Comment_dbo_Product_product_id_genre_id_discount_id" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_RelyComment_Comment" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Order_Delivery" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Product_Discount" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Districts_Provinces" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_OrderAddress_Districts" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Wards_Districts" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Product_Genre" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Order_OrderAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Order_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_OrderDetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_OrderAddress_Provinces" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_OrderAddress_Wards" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_dbo_OrderDetail_dbo_Product_product_id_genre_id_discount_id" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_dbo_Product_Img_dbo_Product_product_id_genre_id_discount_id" ManuallyRouted="false" />
+        <AssociationConnector Association="LinyBookStoreModel.FK_Product_Publisher" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
