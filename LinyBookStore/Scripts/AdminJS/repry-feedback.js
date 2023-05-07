@@ -19,7 +19,7 @@ var CreateReplyFeedback = function (id, product_name, content, acc_name) {
         textarea: $('#reply_comment_con'),
         toolbar: toolbar,
         pasteImage: true,
-        defaultImage: '/Content/Images/favicon.png',
+        defaultImage: '/Content/Images/logo/z4301352991546_02aef523a9a6d34588b1b1c1eb1f67d7.jpg',
         upload: location.search === '?upload' ? {
             url: '/upload'
         } : false
@@ -87,7 +87,7 @@ var CreateReplyFeedback = function (id, product_name, content, acc_name) {
         else {
             $.ajax({
                 type: "POST",
-                url: '/Feedbacks/ReplyComment',
+                url: '/Comments/ReplyComment',
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify({ id: _id, reply_content: _reply_content }),
                 dataType: "json",

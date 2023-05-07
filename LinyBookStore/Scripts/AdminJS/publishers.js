@@ -6,7 +6,7 @@
 const createModal = $('#create-modal')
 const editModal = $('#edit-modal')
 const deleteModal = $('#delete-modal');
-let brandID;
+let publisherID;
 $('.dimis-modal').click(function () {
     createModal.modal('hide');
     editModal.modal('hide');
@@ -37,9 +37,9 @@ $('#create__save').click(function () {
     }
     return $.ajax({
         type: "POST",
-        url: '/Brands/Create',
+        url: '/Publishers/Create',
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ brandName: name }),
+        data: JSON.stringify({ publisherName: name }),
         dataType: "json",
         success: function (result) {
             if (result == "exist") {
@@ -104,11 +104,11 @@ $('#create__save').click(function () {
 var editOpen = function (id, name) {
     editModal.find('#edit__input').val(name);
     editModal.modal('show');
-    brandID = id;
+    publisherID = id;
 }
 $('#edit__save').click(function () {
-    const brandName = $('#edit__input').val()
-    if (brandName == "") {
+    const publisherName = $('#edit__input').val()
+    if (publisherName == "") {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top',
@@ -127,9 +127,9 @@ $('#edit__save').click(function () {
     }
     return $.ajax({
         type: "POST",
-        url: '/Brands/Edit',
+        url: '/Publishers/Edit',
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ id: brandID, brandName: brandName }),
+        data: JSON.stringify({ id: publisherID, publisherName: publisherName }),
         dataType: "json",
         success: function (result) {
             if (result == "exist") {
@@ -192,14 +192,14 @@ $('#edit__save').click(function () {
 var deleteOpen = function (id, name) {
     deleteModal.find('#delete__name').text(name);
     deleteModal.modal('show');
-    brandID = id;
+    publisherID = id;
 }
 $('#delete__submit').click(function () {
     $.ajax({
         type: "POST",
-        url: '/Brands/Delete',
+        url: '/Publishers/Delete',
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ id: brandID }),
+        data: JSON.stringify({ id: publisherID }),
         dataType: "json",
         success: function (result) {
             if (result == "delete") {
@@ -218,7 +218,7 @@ $('#delete__submit').click(function () {
                     title: 'Xóa thành công'
                 })
                 deleteModal.modal('hide');
-                $("#item_" + brandID).remove();
+                $("#item_" + publisherID).remove();
                 return;
             }
         },

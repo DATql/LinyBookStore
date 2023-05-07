@@ -307,7 +307,7 @@
       <LastGenOutput>LinyBookStore.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\AdminJS\auth.js" />
-    <Content Include="Scripts\AdminJS\brands.js" />
+    <Content Include="Scripts\AdminJS\publishers.js" />
     <Content Include="Scripts\AdminJS\discounts.js" />
     <Content Include="Scripts\AdminJS\genres.js" />
     <Content Include="Scripts\AdminJS\orders.js" />
@@ -476,6 +476,7 @@
     <Content Include="Views\Cart\Checkout.cshtml" />
     <Content Include="Views\Account\HistoryOrder.cshtml" />
     <Content Include="Views\Account\HistoryOrderDetail.cshtml" />
+    <Content Include="Views\Account\Address.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

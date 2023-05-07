@@ -27,7 +27,7 @@
                         </span>
                         <!--end::Svg Icon-->
                         <form>
-                            <input type="search" name="search" class="form-control form-control-solid w-250px ps-14" placeholder="Tìm kiếm nhà xuất bản...">
+                            <input type="search" name="search" class="form-control form-control-solid w-250px ps-14" placeholder="Tìm kiếm thể loại...">
                         </form>
                     </div>
                     <!--end::Search-->
@@ -81,7 +81,7 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr class="odd" id="item_@item.publisher_id">
-                                        <td>@item.publisher_id</td>
+                                        <td>@item.publisher_id </td>
                                         <td>@item.publisher_name</td>
                                         <td>@item.create_by</td>
                                         <td>@item.update_by</td>
@@ -176,7 +176,7 @@
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1>Thêm mới nhà xuất bản</h1>
+                        <h1>Thêm mới thể loại</h1>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
@@ -184,7 +184,7 @@
                     <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">Tên nhà xuất bản</span>
+                            <span class="required">Tên thể loại sách</span>
                         </label>
                         <!--end::Label-->
                         <input type="text" id="create__input" class="form-control form-control-solid" placeholder="Nhập tên">
@@ -236,7 +236,7 @@
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1>Chỉnh sửa nhà xuất bản</h1>
+                        <h1>Chỉnh sửa thể loại sách</h1>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
@@ -244,7 +244,7 @@
                     <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">Tên nhà xuất bản</span>
+                            <span class="required">Tên thể loại sách</span>
                         </label>
                         <!--end::Label-->
                         <input type="text" id="edit__input" class="form-control form-control-solid" placeholder="Nhập tên">
@@ -267,7 +267,7 @@
     <!--end::Modal dialog-->
 </div>
 <!--end::Modal - Edit-->
-<!--begin::Modal - Delete Or Disable-->
+<!--begin::Modal - Delete-->
 <div class="modal fade" id="delete-modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-500px">
@@ -322,15 +322,14 @@
             </div>
             <!--end::Modal body-->
         </div>
-        <!--end::Modal content-->
+        <!--end::Modal content
+
     </div>
     <!--end::Modal dialog-->
-</div>
+    </div>
 <!--end::Modal - Delete-->
 <link href="~/Content/AdminCSS/PagedList.css" rel="stylesheet" />
 @section scripts{
     <script src="~/Scripts/AdminJS/publishers.js"></script>
 }
-
-
 
