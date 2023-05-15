@@ -23,7 +23,7 @@ $('#disable-product').click(function () {
     deleteOrDisablemodal.modal('hide');
     $.ajax({
         type: "POST",
-        url: '/ProductsAdmin/Disable',
+        url: '/AdminProducts/Disable',
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({ id: id }),
         dataType: "json",
@@ -81,7 +81,7 @@ var activateProduct = function (productId, ProductName, productPrice2, ProductOl
 $('#avtivate__product-submit').click(function () {
     $.ajax({
         type: "POST",
-        url: '/ProductsAdmin/Undo',
+        url: '/AdminProducts/Undo',
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({ id: id }),
         dataType: "json",
@@ -136,7 +136,7 @@ $('#delete-product').click(function (event) {
     deleteOrDisablemodal.modal('hide');
     $.ajax({
         type: "POST",
-        url: '/ProductsAdmin/Delete',
+        url: '/AdminProducts/Delete',
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({ id: id }),
         dataType: "json",
