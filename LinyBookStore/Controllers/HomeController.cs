@@ -18,6 +18,5 @@ namespace LinyBookStore.Controllers
             return View();
         }
 
-
     }
 }

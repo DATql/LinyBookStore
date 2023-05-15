@@ -40,9 +40,9 @@ namespace LinyBookStore.Controllers
                     errorProduct.Add(item);
                     continue;
                 }
-                cValue = Request.Cookies[item].Value;
-                productIds.Add(Convert.ToInt32(tempArr[1]));
-                quantities.Add(Convert.ToInt32(String.IsNullOrEmpty(cValue) ? "0" : cValue));
+                cValue = Request.Cookies[item].Value; // Lấy giá trị sản phẩm
+                productIds.Add(Convert.ToInt32(tempArr[1])); // Thêm vào mảng sản phẩm trong giỏ hàng
+                quantities.Add(Convert.ToInt32(String.IsNullOrEmpty(cValue) ? "0" : cValue)); // Kiểm tra xem số lượng sản phẩm có bằng 0 hay không
                 if (cValue == "0")
                 {
                     Response.Cookies["product_" + tempArr[1]].Expires = DateTime.Now;
