@@ -15381,7 +15381,6 @@ input {
 
 .product-default-single-item {
     border: 1px solid #f1f1f1;
-    height: 469px;
 }
 @media (max-width: 768px){
     .product-default-single-item {

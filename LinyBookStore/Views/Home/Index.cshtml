@@ -2,6 +2,13 @@
 @{
     ViewBag.Title = "LinyBookStore - Nhà sách trực tuyến";
     Layout = "~/Views/Shared/Main_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    var listHostProduct = (List<LinyBookStore.Models.Product>)ViewBag.HotProduct;
+    var listNewProduct = (List<LinyBookStore.Models.Product>)ViewBag.NewProduct;
+    var listLaptop = (List<LinyBookStore.Models.Product>)ViewBag.Laptop;
+    var listAccessory = (List<LinyBookStore.Models.Product>)ViewBag.Accessory;
+    var listOrderDetail = (List<LinyBookStore.Models.OrderDetail>)ViewBag.OrderDetail;
+    var AvgFeedback = (List<LinyBookStore.Models.Comment>)ViewBag.AvgFeedback;
 }
 
 <!-- Start Hero Slider Section-->
@@ -43,3 +50,363 @@
     </div>
 </div>
 <!-- End Hero Slider Section-->
+<!--begin::New Product-->
+<div class="product-default-slider-section section-top-gap-100 section-fluid">
+    <!-- Start Section Content Text Area -->
+    <div class="section-title-wrapper" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-content-gap">
+                        <div class="secton-content">
+                            <h3 class="section-title">Sản phẩm mới</h3>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start Section Content Text Area -->
+    <div class="product-wrapper" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-slider-default-1row default-slider-nav-arrow">
+                        <!-- Slider main container -->
+                        <div class="swiper-container product-default-slider-4grid-1row">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                <!-- Start Product Default Single Item -->
+                                @foreach (var item in listNewProduct)
+                                {
+                                    <div class="product-default-single-item product-color--golden swiper-slide">
+                                        <div class="image-box">
+                                            <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id"
+                                               class="image-link">
+                                                <img src="@item.image"
+                                                     alt="@item.product_name" />
+                                            </a>
+                                            @if (item.Discount.discount_start < DateTime.Now && item.Discount.discount_end > DateTime.Now && item.Discount.discount_price != 0)
+                                            {
+                                                <div class="tag">
+                                                    <span>-@((((item.price) /(item.price))-((item.price - item.Discount.discount_price)/(item.price))).ToString("0%"))</span>
+                                                </div>
+                                            }
+                                            <div class="action-link">
+                                                <div class="action-link-left">
+                                                    <input step="1" id="quantity" autocomplete="off" hidden value="1" type="number" />
+                                                    <a class="btnAddToCart" style="cursor:pointer;" data-id="@item.product_id">Thêm vào giỏ</a>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <div class="text-center">
+                                                <h6 class="title">
+                                                    <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">@item.product_name</a>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <ul class="review-star">
+                                                @{
+                                                    double onestar = 1; int c_onestar = 0; double truestar = 2; int c_truestar = 0;
+                                                    double threestar = 3; int c_threestar = 0; ; double fourstar = 4; int c_fourstar = 0;
+                                                    double fivestar = 5; int c_fivestar = 0; int totalrating = 0; double avg = 0;
+                                                    string avgStar = "";
+                                                    foreach (var avgfb in AvgFeedback)
+                                                    {
+                                                        foreach (var feedbackOrder in listOrderDetail)
+                                                        {
+                                                            if (avgfb.product_id == item.product_id && avgfb.status == "2" && feedbackOrder.Order.status == "3" && feedbackOrder.product_id == item.product_id)
+                                                            {
+                                                                totalrating++;
+                                                                if (avgfb.rate == 1)
+                                                                {
+                                                                    c_onestar++;
+                                                                }
+                                                                if (avgfb.rate == 2)
+                                                                {
+                                                                    c_truestar++;
+                                                                }
+                                                                if (avgfb.rate == 3)
+                                                                {
+                                                                    c_threestar++;
+                                                                }
+                                                                if (avgfb.rate == 4)
+                                                                {
+                                                                    c_fourstar++;
+                                                                }
+                                                                if (avgfb.rate == 5)
+                                                                {
+                                                                    c_fivestar++;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    avg = (onestar * c_onestar / totalrating) + (truestar * c_truestar / totalrating) + (threestar * c_threestar / totalrating) +
+                                                    (fourstar * c_fourstar / totalrating) + (fivestar * c_fivestar / totalrating);
+                                                    if (avg >= 1 && avg < 2)
+                                                    {
+                                                        avgStar = "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                    else if ((avg >= 2) && (avg < 3))
+                                                    {
+                                                        avgStar = "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                    else if ((avg >= 3) && (avg < 4))
+                                                    {
+                                                        avgStar = "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                    else if ((avg >= 4) && (avg < 5))
+                                                    {
+                                                        avgStar = "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                    else if (avg == 5)
+                                                    {
+                                                        avgStar = "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                    else
+                                                    {
+                                                        avgStar = "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                }
+                                                @Html.Raw(avgStar)
+                                            </ul>
+                                        </div>
+                                        <div class="text-center">
+                                            @if (item.Discount.discount_start < DateTime.Now && item.Discount.discount_end > DateTime.Now && item.Discount.discount_price != 0)
+                                            {
+                                                <span class="price"><del style="font-size:15px; margin-right:7px;">@item.price.ToString("#,0₫", culture.NumberFormat)</del><span style="color: #000; font-size: 17px; font-weight: 600;">@((item.price - item.Discount.discount_price).ToString("#,0₫", culture.NumberFormat))</span></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="price" style="font-size: 17px; color: #000; font-weight: 600;">@item.price.ToString("#,0₫", culture.NumberFormat)</span>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                <!-- End Product Default Single Item -->
+                            </div>
+                        </div>
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::New Product-->
+<!--begin:: Host Product-->
+<div class="product-default-slider-section section-top-gap-100 section-fluid section-inner-bg">
+    <!-- Start Section Content Text Area -->
+    <div class="section-title-wrapper" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-content-gap">
+                        <div class="secton-content">
+                            <h3 class="section-title">SẢN PHẨM BÁN CHẠY NHẤT</h3>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start Section Content Text Area -->
+    <div class="product-wrapper" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-slider-default-1row default-slider-nav-arrow">
+                        <!-- Slider main container -->
+                        <div class="swiper-container product-default-slider-4grid-1row">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                @foreach (var item in listHostProduct)
+                                {
+                                    <!-- Start Product Default Single Item -->
+                                    <div class="product-default-single-item product-color--golden swiper-slide">
+                                        <div class="image-box">
+                                            <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id"
+                                               class="image-link">
+                                                <img src="@item.image"
+                                                     alt="@item.product_name" />
+                                            </a>
+                                            @if (item.Discount.discount_start < DateTime.Now && item.Discount.discount_end > DateTime.Now && item.Discount.discount_price != 0)
+                                            {
+                                                <div class="tag">
+                                                    <span>-@((((item.price) /(item.price))-((item.price - item.Discount.discount_price)/(item.price))).ToString("0%"))</span>
+                                                </div>
+                                            }
+                                            <div class="action-link">
+                                                <div class="action-link-left">
+                                                    <input step="1" id="quantity" autocomplete="off" hidden value="1" type="number" />
+                                                    <a class="btnAddToCart" style="cursor:pointer;" data-id="@item.product_id">Thêm vào giỏ</a>
+                                                </div>
+                                                <div class="action-link-right">
+                                                    <a href="#"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#modalQuickview">
+                                                        <i class="icon-magnifier"></i>
+                                                    </a>
+                                                    <a>
+                                                        <i class="icon-heart"></i>
+                                                    </a>
+                                                    <a>
+                                                        <i class="icon-shuffle"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <div class="text-center">
+                                                <h6 class="title">
+                                                    <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">@item.product_name</a>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <ul class="review-star">
+                                                @{
+                                                    double onestar = 1; int c_onestar = 0; double truestar = 2; int c_truestar = 0;
+                                                    double threestar = 3; int c_threestar = 0; ; double fourstar = 4; int c_fourstar = 0;
+                                                    double fivestar = 5; int c_fivestar = 0; int totalrating = 0; double avg = 0;
+                                                    string avgStar = "";
+                                                    foreach (var avgfb in AvgFeedback)
+                                                    {
+                                                        foreach (var feedbackOrder in listOrderDetail)
+                                                        {
+                                                            if (avgfb.product_id == item.product_id && avgfb.status == "2" && feedbackOrder.Order.status == "3" && feedbackOrder.product_id == item.product_id)
+                                                            {
+                                                                totalrating++;
+                                                                if (avgfb.rate == 1)
+                                                                {
+                                                                    c_onestar++;
+                                                                }
+                                                                if (avgfb.rate == 2)
+                                                                {
+                                                                    c_truestar++;
+                                                                }
+                                                                if (avgfb.rate == 3)
+                                                                {
+                                                                    c_threestar++;
+                                                                }
+                                                                if (avgfb.rate == 4)
+                                                                {
+                                                                    c_fourstar++;
+                                                                }
+                                                                if (avgfb.rate == 5)
+                                                                {
+                                                                    c_fivestar++;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    avg = (onestar * c_onestar / totalrating) + (truestar * c_truestar / totalrating) + (threestar * c_threestar / totalrating) +
+                                                    (fourstar * c_fourstar / totalrating) + (fivestar * c_fivestar / totalrating);
+                                                    if (avg >= 1 && avg < 2)
+                                                    {
+                                                        avgStar = "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                    else if ((avg >= 2) && (avg < 3))
+                                                    {
+                                                        avgStar = "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                    else if ((avg >= 3) && (avg < 4))
+                                                    {
+                                                        avgStar = "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                    else if ((avg >= 4) && (avg < 5))
+                                                    {
+                                                        avgStar = "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                    else if (avg == 5)
+                                                    {
+                                                        avgStar = "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='fill'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                    else
+                                                    {
+                                                        avgStar = "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>" +
+                                                               "<li class='empty'><i class='ion-android-star'></i></li>";
+                                                    }
+                                                }
+                                                @Html.Raw(avgStar)
+                                            </ul>
+                                        </div>
+                                        <div class="text-center">
+                                            @if (item.Discount.discount_start < DateTime.Now && item.Discount.discount_end > DateTime.Now && item.Discount.discount_price != 0)
+                                            {
+                                                <span class="price"><del style="font-size:15px; margin-right:7px;">@item.price.ToString("#,0₫", culture.NumberFormat)</del><span style="color: #000; font-size: 17px; font-weight: 600;">@((item.price - item.Discount.discount_price).ToString("#,0₫", culture.NumberFormat))</span></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="price" style="font-size: 17px; color: #000; font-weight: 600;">@item.price.ToString("#,0₫", culture.NumberFormat)</span>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                <!-- End Product Default Single Item -->
+                            </div>
+                        </div>
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::Host Product-->
