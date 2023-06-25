@@ -251,6 +251,7 @@
     <Content Include="Content\fonts\font-awesome\fontawesome-webfont3e6e.svg" />
     <Content Include="Content\fonts\ionicon-fonts\ionicons28b5.svg" />
     <Content Include="Content\fonts\simple-line-icon-fonts\Simple-Line-Iconsb26c.svg" />
+    <Content Include="Content\Images\background\18.png" />
     <Content Include="Content\Images\background\background.jpg" />
     <Content Include="Content\Images\icon\bkg_grid.png" />
     <Content Include="Content\Images\icon\bkg_list.png" />
@@ -477,6 +478,8 @@
     <Content Include="Views\Account\HistoryOrder.cshtml" />
     <Content Include="Views\Account\HistoryOrderDetail.cshtml" />
     <Content Include="Views\Account\Address.cshtml" />
+    <Content Include="Views\Home\PageNotFound.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
