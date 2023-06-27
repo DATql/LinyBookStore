@@ -14,6 +14,9 @@ using LinyBookStore.Common.Helpers;
 using LinyBookStore.Models;
 using LinyBookStore.Models.AuthAccount;
 using System.Data.Entity;
+using CaptchaMvc.Interface;
+using CaptchaMvc.HtmlHelpers;
+using System.EnterpriseServices.CompensatingResourceManager;
 
 namespace LinyBookStore.Controllers
 {
@@ -43,25 +46,35 @@ namespace LinyBookStore.Controllers
         {
             model.Password = Crypto.Hash(model.Password);
             Account account = db.Accounts.SingleOrDefault(m => m.email == model.Email && m.password == model.Password && m.status == "1");
-            if (account != null)
+            if (account == null)
             {
-                LoggedUserData userData = new LoggedUserData
-                {
-                    UserId = account.account_id,
-                    Name = account.name,
-                    Email = account.email,
-                    RoleCode = account.role,
-                    Avatar = account.avatar
-                };
-
-                Notification.setNotification1_5s("Đăng nhập thành công", "success");
-                FormsAuthentication.SetAuthCookie(JsonConvert.SerializeObject(userData), false);
-                if (!String.IsNullOrEmpty(returnUrl))
-                    return Redirect(returnUrl);
-                else
-                    return RedirectToAction("Index", "Home");
+                Notification.setNotification3s("Email, mật khẩu không đúng, hoặc tài khoản bị vô hiệu hóa", "error");
+                return View(model);
             }
-            Notification.setNotification3s("Email, mật khẩu không đúng, hoặc tài khoản bị vô hiệu hóa", "error");
+            else
+            {
+                if (!this.IsCaptchaValid(""))
+                {
+                    ViewBag.captcha = "Captcha không chính xác";
+                }
+                else
+                {
+                    LoggedUserData userData = new LoggedUserData
+                    {
+                        UserId = account.account_id,
+                        Name = account.name,
+                        Email = account.email,
+                        RoleCode = account.role,
+                        Avatar = account.avatar
+                    };
+                    Notification.setNotification1_5s("Đăng nhập thành công", "success");
+                    FormsAuthentication.SetAuthCookie(JsonConvert.SerializeObject(userData), false);
+                    if (!String.IsNullOrEmpty(returnUrl))
+                        return Redirect(returnUrl);
+                    else
+                        return RedirectToAction("Index", "Home");
+                }
+            }
             return View(model);
         }
 

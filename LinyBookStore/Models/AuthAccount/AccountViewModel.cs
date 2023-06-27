@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CaptchaMvc.HtmlHelpers;
 
 namespace LinyBookStore.Models.AuthAccount
 {
@@ -19,6 +20,7 @@ namespace LinyBookStore.Models.AuthAccount
         [Required(ErrorMessage = "Nhập mật khẩu")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+       
     }
 
     public class RegisterViewModels

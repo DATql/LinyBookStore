@@ -35,110 +35,123 @@
 <!-- ...:::: Start Cart Section:::... -->
 <div class="cart-section">
     <!-- Start Cart Table -->
-    <div class="cart-table-wrapper" data-aos="fade-up" data-aos-delay="0">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="table_desc">
-                        <div class="table_page table-responsive">
-                            <table>
-                                <!-- Start Cart Table Head -->
-                                <thead>
-                                    <tr>
-                                        <th class="product_remove">Xóa</th>
-                                        <th class="product_thumb">Ảnh</th>
-                                        <th class="product_name">Sản Phẩm</th>
-                                        <th class="product-price">Giá</th>
-                                        <th class="product_quantity">Số Lượng</th>
-                                        <th class="product_total">Tổng</th>
-                                    </tr>
-                                </thead> <!-- End Cart Table Head -->
-                                <tbody>
-                                    @for (int i = 0; i < Model.Count(); i++)
-                                    {
-                                        var item = Model.ElementAt(i);
-                                        var quan = quans[i];
-                                        var price = item.price;
-                                        int maxquantity = Int32.Parse(item.quantity);
-                                        <!-- Start Cart Single Item-->
-                                        <tr class="item">
-                                            <td class="product_remove">
-                                                <a class="js-delete" style="cursor:pointer;" data-id="@item.product_id"><i class="fa fa-trash-o"></i></a>
-                                            </td>
-                                            <td class="product_thumb">
-                                                <a target="_blank" href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id">
-                                                    <img src="@item.image" alt="">
-                                                </a>
-                                            </td>
-                                            <td class="product_name">
-                                                <a target="_blank" href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id">
-                                                    @item.product_name
-                                                </a>
-                                            </td>
-                                            <td class="product-price">
-                                                @if (item.Discount.discount_start < DateTime.Now && item.Discount.discount_end > DateTime.Now)
-                                                {
-                                                    price = item.price - item.Discount.discount_price;
-                                                    <div style="color:#808080;font-size: 13px;">
-                                                        <del>
+    @if (Model.Count() == 0)
+    {
+        <div class="container" style="padding: 50px 0">
+            <div class="text-center">
+                <img src="~/Content/Images/icon/empty_state.png" class="img-fluid" alt="Responsive image" width="30%">
+                <h5 style="margin-bottom: 19px; color:#3a3434;">Chưa có đơn hàng nào.</h5>
+                <a href=@Url.Action("Book","Product") class="btn-shownow" style="font-weight: bold; font-size: 15px;">MUA NGAY</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="cart-table-wrapper" data-aos="fade-up" data-aos-delay="0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table_desc">
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <!-- Start Cart Table Head -->
+                                    <thead>
+                                        <tr>
+                                            <th class="product_remove">Xóa</th>
+                                            <th class="product_thumb">Ảnh</th>
+                                            <th class="product_name">Sản Phẩm</th>
+                                            <th class="product-price">Giá</th>
+                                            <th class="product_quantity">Số Lượng</th>
+                                            <th class="product_total">Tổng</th>
+                                        </tr>
+                                    </thead> <!-- End Cart Table Head -->
+                                    <tbody>
+                                        @for (int i = 0; i < Model.Count(); i++)
+                                        {
+                                            var item = Model.ElementAt(i);
+                                            var quan = quans[i];
+                                            var price = item.price;
+                                            int maxquantity = Int32.Parse(item.quantity);
+                                            <!-- Start Cart Single Item-->
+                                            <tr class="item">
+                                                <td class="product_remove">
+                                                    <a class="js-delete" style="cursor:pointer;" data-id="@item.product_id"><i class="fa fa-trash-o"></i></a>
+                                                </td>
+                                                <td class="product_thumb">
+                                                    <a target="_blank" href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id">
+                                                        <img src="@item.image" alt="">
+                                                    </a>
+                                                </td>
+                                                <td class="product_name">
+                                                    <a target="_blank" href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id">
+                                                        @item.product_name
+                                                    </a>
+                                                </td>
+                                                <td class="product-price">
+                                                    @if (item.Discount.discount_start < DateTime.Now && item.Discount.discount_end > DateTime.Now)
+                                                    {
+                                                        price = item.price - item.Discount.discount_price;
+                                                        <div style="color:#808080;font-size: 13px;">
+                                                            <del>
+                                                                @item.price.ToString("#,0₫", culture.NumberFormat)
+                                                            </del>
+                                                        </div>
+                                                        <div>
+                                                            @price.ToString("#,0₫", culture.NumberFormat)
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div>
                                                             @item.price.ToString("#,0₫", culture.NumberFormat)
-                                                        </del>
+                                                        </div>
+                                                    }
+                                                </td>
+                                                <td class="product_quantity">
+                                                    <div class="input-number d-flex justify-content-center">
+                                                        <div class="quantity_cart user-select-none">
+                                                            <a class="btn bg-transparent value-button btn-dec" data-action="minus"><i class="fa fa-minus" style="font-size: 12px; color: #545454;"></i></a>
+                                                            @if (quan >= maxquantity)
+                                                            {
+                                                                <input type="number" autocomplete="off" class="qty-input" min="1" max="@item.quantity" data-price="@price" data-quan="@item.quantity" data-id="@item.product_id" value="@item.quantity" name="quantity" oninput="validity.valid || (value = '1');" title="số lượng" style="background: transparent;" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="number" autocomplete="off" class="qty-input" min="1" max="@item.quantity" data-price="@price" data-quan="@item.quantity" data-id="@item.product_id" value="@quan" name="quantity" oninput="validity.valid || (value = '1');" title="số lượng" style="background: transparent;" />
+                                                            }
+                                                            <a class="btn bg-transparent value-button btn-inc" data-action="add"><i class="fa fa-plus" style="font-size: 12px; color: #545454;"></i></a>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        @price.ToString("#,0₫", culture.NumberFormat)
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <div>
-                                                        @item.price.ToString("#,0₫", culture.NumberFormat)
-                                                    </div>
-                                                }
-                                            </td>
-                                            <td class="product_quantity">
-                                                <div class="input-number d-flex justify-content-center">
-                                                    <div class="quantity_cart user-select-none">
-                                                        <a class="btn bg-transparent value-button btn-dec" data-action="minus"><i class="fa fa-minus" style="font-size: 12px; color: #545454;"></i></a>
-                                                        @if (quan >= maxquantity)
-                                                        {
-                                                            <input type="number" autocomplete="off" class="qty-input" min="1" max="@item.quantity" data-price="@price" data-quan="@item.quantity" data-id="@item.product_id" value="@item.quantity" name="quantity" oninput="validity.valid || (value = '1');" title="số lượng" style="background: transparent;" />
+                                                </td>
+                                                <td class="product_total" style="font-size:16px;">
+                                                    @{
+                                                        double total3 = 0;
+                                                        total3 = price * quan;
+                                                    }
+                                                    <span id="total3-@item.product_id" style="color: #fe8c23; ">
+                                                        @total3.ToString("#,0₫", culture.NumberFormat)
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <!-- End Cart Single Item-->
+                                                            totalPrice += quan * price;
                                                         }
-                                                        else
-                                                        {
-                                                            <input type="number" autocomplete="off" class="qty-input" min="1" max="@item.quantity" data-price="@price" data-quan="@item.quantity" data-id="@item.product_id" value="@quan" name="quantity" oninput="validity.valid || (value = '1');" title="số lượng" style="background: transparent;" />
-                                                        }
-                                                        <a class="btn bg-transparent value-button btn-inc" data-action="add"><i class="fa fa-plus" style="font-size: 12px; color: #545454;"></i></a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="product_total" style="font-size:16px;">
-                                                @{
-                                                    double total3 = 0;
-                                                    total3 = price * quan;
-                                                }
-                                                <span id="total3-@item.product_id" style="color: #fe8c23; ">
-                                                    @total3.ToString("#,0₫", culture.NumberFormat)
-                                                </span>
+                                    </tbody>
+                                    <tfoot class="@(Model.Count() == 0 ? "d-block" : "d-none")" id="emty-product">
+                                        <tr>
+                                            <td class="text-danger" style="font-weight: 600; font-size: 17px; padding: 5px 5px;">
+                                                Không có sản phẩm trong giỏ hàng
                                             </td>
                                         </tr>
-                                        <!-- End Cart Single Item-->
-                                        totalPrice += quan * price;
-                                    }
-                                </tbody>
-                                <tfoot class="@(Model.Count() == 0 ? "d-block":"d-none")" id="emty-product">
-                                    <tr>
-                                        <td class="text-danger" style="font-weight: 600; font-size: 17px; padding: 5px 5px;">
-                                            Không có sản phẩm trong giỏ hàng
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> <!-- End Cart Table -->
+
     <!-- Start Coupon Start -->
     <div class="coupon_area">
         <div class="container">
@@ -175,14 +188,17 @@
                                 <p style="font-size: 20px; color: rgb(235, 33, 1);" class="cart_amount totalPriceWithFee">@((totalPrice + shippingFee).ToString("#,0₫", culture.NumberFormat))</p>
                             </div>
                             <div class="checkout_btn">
-                                <a href="@Url.Action("Checkout","Cart")" class="js-checkout btn btn-md btn-golden">Hoàn tất thanh toán</a>
+                                <a href="@Url.Action("Checkout", "Cart")" class="js-checkout btn btn-md btn-golden">Hoàn tất thanh toán</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> <!-- End Coupon Start -->
+    </div> 
+    <!-- End Coupon Start -->
+    <!-- End Cart Table -->
+}
 </div> <!-- ...:::: End Cart Section:::... -->
 @section scripts{
     <script src="~/Scripts/UserJS/cart.js"></script>
