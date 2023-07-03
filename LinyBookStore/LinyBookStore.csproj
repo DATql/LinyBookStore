@@ -662,6 +662,7 @@
     <Content Include="Content\Images\background\background.jpg" />
     <Content Include="Content\Images\icon\bkg_grid.png" />
     <Content Include="Content\Images\icon\bkg_list.png" />
+    <Content Include="Content\Images\icon\checked.png" />
     <Content Include="Content\Images\icon\empty_state.png" />
     <Content Include="Content\Images\logo\favicon.png" />
     <Content Include="Content\Images\logo\logo_white.png" />

@@ -82,15 +82,13 @@
                                 {
                                     <div class="product-default-single-item product-color--golden swiper-slide">
                                         <div class="image-box">
-                                            <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id"
-                                               class="image-link">
-                                                <img src="@item.image"
-                                                     alt="@item.product_name" />
+                                            <a href="@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id" class="image-link">
+                                                <img src="@item.image" alt="@item.product_name">
                                             </a>
                                             @if (item.Discount.discount_start < DateTime.Now && item.Discount.discount_end > DateTime.Now && item.Discount.discount_price != 0)
                                             {
                                                 <div class="tag">
-                                                    <span>-@((((item.price) /(item.price))-((item.price - item.Discount.discount_price)/(item.price))).ToString("0%"))</span>
+                                                    <span>-@((((item.price) / (item.price)) - ((item.price - item.Discount.discount_price) / (item.price))).ToString("0%"))</span>
                                                 </div>
                                             }
                                             <div class="action-link">
@@ -98,7 +96,7 @@
                                                     <input step="1" id="quantity" autocomplete="off" hidden value="1" type="number" />
                                                     <a class="btnAddToCart" style="cursor:pointer;" data-id="@item.product_id">Thêm vào giỏ</a>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                         <div class="content">
@@ -272,19 +270,7 @@
                                                     <input step="1" id="quantity" autocomplete="off" hidden value="1" type="number" />
                                                     <a class="btnAddToCart" style="cursor:pointer;" data-id="@item.product_id">Thêm vào giỏ</a>
                                                 </div>
-                                                <div class="action-link-right">
-                                                    <a href="#"
-                                                       data-bs-toggle="modal"
-                                                       data-bs-target="#modalQuickview">
-                                                        <i class="icon-magnifier"></i>
-                                                    </a>
-                                                    <a>
-                                                        <i class="icon-heart"></i>
-                                                    </a>
-                                                    <a>
-                                                        <i class="icon-shuffle"></i>
-                                                    </a>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                         <div class="content">
@@ -410,3 +396,5 @@
     </div>
 </div>
 <!--end::Host Product-->
+<script src="~/Scripts/UserJS/add-to-cart.js"></script>
+

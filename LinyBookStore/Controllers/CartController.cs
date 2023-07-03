@@ -283,6 +283,6 @@ namespace LinyBookStore.Controllers
             return Json(new { success = false, discountPrice = 0 }, JsonRequestBehavior.AllowGet);
         }
 
-
+       
     }
 }
